@@ -16,11 +16,18 @@ body{
     margin: auto;
     background-image: url(image/board.jpg);
 }
+#messageArea{
+    padding: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    color: rgb(83, 175, 19);
+}
 #table{
     position: absolute;
     left: 173px;
     top: 98px;
     border-spacing: 0px;
+
 }
 td{
     width: 96px;
@@ -52,9 +59,11 @@ td{
     background-image: url(image/ship.png);
     background-position: center;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 .miss{
     background-image: url(image/miss.png);
     background-position: center;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
