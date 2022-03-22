@@ -7,7 +7,6 @@
 }
 
 body{
-    display: flex;
     background-color: black;
 }
 #board{
@@ -16,5 +15,46 @@ body{
     height: 863px;
     margin: auto;
     background-image: url(image/board.jpg);
-
+}
+#table{
+    position: absolute;
+    left: 173px;
+    top: 98px;
+    border-spacing: 0px;
+}
+td{
+    width: 96px;
+    height: 96.5px;
+}
+#form{
+    position: absolute;
+    bottom: 70px;
+    right: 20px;
+    padding: 15px;
+    background-color: rgb(83, 175, 19);;
+    border-radius: 5px;
+}
+#guessInput{
+    height: 25px;
+    padding-left: 5px;
+    color: white;
+    background-color: rgba(124, 238, 124, 0.726);
+    border-radius: 5px;
+}
+#fireButton{
+    height: 25px;
+    width: 50px;
+    background-color: rgba(124, 238, 124, 0.726);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.hit{
+    background-image: url(image/ship.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.miss{
+    background-image: url(image/miss.png);
+    background-position: center;
+    background-repeat: no-repeat;
 }
