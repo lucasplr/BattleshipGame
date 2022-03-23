@@ -25,14 +25,23 @@ let model = {
     fire: function(guess){
         for (var i = 0; i < this.numShips; i++){
             var ship = this.ships[i]
-            let locations = ship.locations
-            var index = locations.indexOf(guess)
+            var index = ships.locations.indexOf(guess)
             if (index >= 0){
-                console.log('You hit')
-            }else{
-                console.log('Youn dont have a hit')
+            ship.hits[index] = "hit"
+            if (this.isSunk(ship)){ //if the function is true, then 1 ship is sunk.
+                this.shipsSunk++
             }
+            return true
+            }    
+        }
+        return false
+    },
+    isSunk: function(ship){
+        for (var i = 0; i < this.shipLength; i++){
+        if (ship.hits[i] !== "hit"){ //This function will verify if all the "hits" in the ship var has the "hit" in it, in any of them don't have, will return false. Using the ship.hits[i], the code will see all the positions in the ships array.
+            return false
         }
     }
+        return true
+    }
 }
-model.fire("16")
