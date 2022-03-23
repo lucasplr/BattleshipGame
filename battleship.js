@@ -52,7 +52,7 @@ let model = {
 }
 
 
-    shot() {
-        let shot = document.getElementById('fireButton')
-        guess = shot
+    function shot() {
+        let shot = document.getElementById('guessInput')
+        
 }
