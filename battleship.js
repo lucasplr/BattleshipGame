@@ -50,9 +50,34 @@ let model = {
         return true
     }
 }
+var controller = {
+    guesses: 0,
+    processGuess: function(guess){
+        let location = parseGuess(guess)
+        if (location){
+            this.guesses++
+            let hit = model.fire(location)
+        }
+    }
+}
 
+function parseGuess(guess){
+    let alphabet = ["A", "B", "C", "D", "E", "F", "G"]
 
-    function shot() {
-        let shot = document.getElementById('guessInput')
-        
+    if (guess === null || guess.length !== 2){ //If the guess has less or more than 2 characteres.
+        alert("Oops, please enter a letter and a number on the board")
+    }else {
+        let firstChar = guess.charAt(0)
+        let row = alphabet.indexOf(firstChar)
+        let column = guess.charAt(1)
+
+        if (isNaN(row) || isNaN(column)){
+            alert("Oops, that isn't on the board.")
+        }else if (row < 0 || row >= model.boardSize || column < 0 || column > model.boardSize){
+            alert("Oops, that's off the board!")
+        }else{
+            return row + column //row is a number, and column a string, wich combined result in a string
+        }
+    }
+    return null //if none of the else properties match, will result in null
 }
