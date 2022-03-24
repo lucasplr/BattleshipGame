@@ -39,7 +39,7 @@ let view = {
     },
     displayMiss: function(location){
         let cell = document.getElementById(location)
-        cell.setAttribute("class", "miss")
+        cell.setAttribute("class", "miss") //And if the location getted is miss, add a image of miss to this cell.
     }
 }
 
@@ -52,10 +52,10 @@ let model = {
     { locations: ["24", "34", "44"], hits: ["", "", ""] },
     { locations: ["10", "11", "12"], hits: ["", "", ""] }],
     fire: function(guess) {
-        for (var i = 0; i < this.numShips; i++){
-            var ship = this.ships[i]
-            var index = ship.locations.indexOf(guess)
-            if (index >= 0){
+        for (var i = 0; i < this.numShips; i++){ //Index test the number of ship's in the array
+            var ship = this.ships[i] 
+            var index = ship.locations.indexOf(guess) //Chaining to access the positions of the ship.
+            if (index >= 0){ //If index >= 0 means that in the locations have a value equal to the guess, meaning a hit.
             ship.hits[index] = "hit"
             view.displayHit(guess)
             view.displayMessage('HIT!')
@@ -66,7 +66,7 @@ let model = {
             return true
             }    
         }
-        view.displayMiss(guess)
+        view.displayMiss(guess) //If the index value is less than 0, means that none of the values of the positions match with the guess.
         view.displayMessage('You missed.')
         return false
     },
@@ -114,30 +114,30 @@ let model = {
 var controller = {
     guesses: 0,
     processGuess: function(guess){
-        let location = parseGuess(guess)
-        if (location){
+        let location = parseGuess(guess) //Take the value from the parseGuess function
+        if (location){ //If the value from the parseGuess is true, if will be executed
             this.guesses++
             let hit = model.fire(location)
-            if (hit && model.shipsSunk === model.numShips){
+            if (hit && model.shipsSunk === model.numShips){ 
                 view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses") //hit && model.shipSun. hit to see if the guess hit a ship, and shipSunk to see if all the ships are sunk.
             }
         }
     }
 }
 
-function parseGuess(guess){
-    let alphabet = ["A", "B", "C", "D", "E", "F", "G"]
+function parseGuess(guess){  //This function will verify if the value is valid.
+    let alphabet = ["A", "B", "C", "D", "E", "F", "G"] // An array to compare the first value, and see if is valid
 
     if (guess === null || guess.length !== 2){ //If the guess has less or more than 2 characteres.
         alert("Oops, please enter a letter and a number on the board")
     }else {
-        let firstChar = guess.charAt(0)
-        let row = alphabet.indexOf(firstChar)
-        let column = guess.charAt(1)
+        let firstChar = guess.charAt(0) //This take the first character of the guess
+        let row = alphabet.indexOf(firstChar)// and compare with the array to see if is valid
+        let column = guess.charAt(1)// This take the second character of the guess
 
-        if (isNaN(row) || isNaN(column)){
+        if (isNaN(row) || isNaN(column)){ // check to see if some of the character is NaN
             alert("Oops, that isn't on the board.")
-        }else if (row < 0 || row >= model.boardSize || column < 0 || column > model.boardSize){
+        }else if (row < 0 || row >= model.boardSize || column < 0 || column > model.boardSize){ //Check to see if match with the size of the board
             alert("Oops, that's off the board!")
         }else{
             return row + column //row is a number, and column a string, wich combined result in a string
@@ -145,11 +145,11 @@ function parseGuess(guess){
     }
     return null //if none of the else properties match, will result in null
 }
-    function init(){
+    function init(){ //When the page is loaded this function is executed, getting the infos from the button and the input
      let fireButton = document.getElementById("fireButton")
      fireButton.onclick = shot   
      let guessInput = document.getElementById("guessInput")
-     guessInput.onkeypress = handleKeyPress
+     guessInput.onkeypress = handleKeyPress // To make possible to enter the guess with the keyboard
 
      model.generateShipLocations() //When the page is loaded, this will generate random locations for the ships.
     }
@@ -160,10 +160,10 @@ function parseGuess(guess){
             return false
         }
     }
-    function shot(){
+    function shot(){ 
         let shot = document.getElementById("guessInput")
         let guess = shot.value
-        controller.processGuess(guess)
+        controller.processGuess(guess) //Call the function to start the cicle
         guessInput.value = "" //Reset the input space.
     }
     window.onload = init
