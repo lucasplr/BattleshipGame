@@ -92,15 +92,19 @@ let model = {
         let row
         let col
         if (direction === 1){
-
+            row = Math.floor(Math.random() * this.boardSize)
+            col = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1))) //Minus shiplenght to not extend beyound the board, and + 1 because the math.floor round to the smallest number, so, with +1 the last space can be used.
         }else{
-
+            row = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1))) //Same thing used in col
+            col = Math.floor(Math.random() * this.boardSize)
         }
     var newShipLocations = []
     for ( var i = 0; i < this.shipLength; i++){
         if ( direction === 1){
-
+            newShipLocations.push(row + "" + (col + i)) //+ i to sum to the next column. Parentheses used to guarantee that the col + i is executed before the concatenation.
         }else{
+            newShipLocations.push((row + i) + "" + col) //Now increasing the value of row, because the ship will be located in the vertical position.
+
         }
     }
     return newShipLocations
@@ -146,6 +150,8 @@ function parseGuess(guess){
      fireButton.onclick = shot   
      let guessInput = document.getElementById("guessInput")
      guessInput.onkeypress = handleKeyPress
+
+     model.generateShipLocations() //When the page is loaded, this will generate random locations for the ships.
     }
     function handleKeyPress(e){
         let fireButton = document.getElementById("fireButton")
@@ -161,4 +167,4 @@ function parseGuess(guess){
         guessInput.value = "" //Reset the input space.
     }
     window.onload = init
-    
+    model.ships
