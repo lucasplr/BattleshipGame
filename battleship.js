@@ -19,9 +19,9 @@ let model = {
     numShips: 3,
     shipLength: 3,
     shipsSunk: 0,
-    ships: [{ locations: ["06", "16", "26"], hits: ["", "", ""] },
-    { locations: ["24", "34", "44"], hits: ["", "", ""] },
-    { locations: ["10", "11", "12"], hits: ["", "", ""] }],
+    ships: [{ locations: [0, 0, 0], hits: ["", "", ""] },
+    { locations: [0, 0, 0], hits: ["", "", ""] },
+    { locations: [0, 0, 0], hits: ["", "", ""] }],
     fire: function(guess) {
         for (var i = 0; i < this.numShips; i++){
             var ship = this.ships[i]
@@ -63,19 +63,34 @@ let model = {
         let row
         let col
         if (direction === 1){
-
+            row = Math.floor(Math.random() * this.boardSize)
+            col = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1))) //Minus shiplenght to not extend beyound the board, and + 1 because the math.floor round to the smallest number, so, with +1 the last space can be used.
         }else{
-
+            row = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1))) //Same thing used in col
+            col = Math.floor(Math.random() * this.boardSize)
         }
     var newShipLocations = []
     for ( var i = 0; i < this.shipLength; i++){
         if ( direction === 1){
-
+            newShipLocations.push(row + "" + (col + i)) //+ i to sum to the next column. Parentheses used to guarantee that the col + i is executed before the concatenation.
         }else{
+            newShipLocations.push((row + i) + "" + col) //Now increasing the value of row, because the ship will be located in the vertical position.
+
         }
     }
     return newShipLocations
-}
+},
+    collision: function(locations){
+        for (var i = 0; i < this.numShips; i++){
+            let ship = this.ships[i]
+            for (var j = 0; j < locations.length; j++){ //Checking if the locations of the new ship already exist in the array.
+                if (ship.locations.indexOf(locations[j]) >= 0){
+                    return true //If return greater or equal to 0, that means the location already exist, returning true.
+                }
+            }
+        }
+        return false //there are no collision.
+    }
 }
 
 var controller = {
@@ -117,6 +132,8 @@ function parseGuess(guess){
      fireButton.onclick = shot   
      let guessInput = document.getElementById("guessInput")
      guessInput.onkeypress = handleKeyPress
+
+     model.generateShipLocations() //When the page is loaded, this will generate random locations for the ships.
     }
     function handleKeyPress(e){
         let fireButton = document.getElementById("fireButton")
@@ -132,4 +149,4 @@ function parseGuess(guess){
         guessInput.value = "" //Reset the input space.
     }
     window.onload = init
-    
+    model.ships
