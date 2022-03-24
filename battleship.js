@@ -57,6 +57,9 @@ var controller = {
         if (location){
             this.guesses++
             let hit = model.fire(location)
+            if (hit && model.shipsSunk === model.numShips){
+                view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses") //hit && model.shipSun. hit to see if the guess hit a ship, and shipSunk to see if all the ships are sunk.
+            }
         }
     }
 }
@@ -81,3 +84,24 @@ function parseGuess(guess){
     }
     return null //if none of the else properties match, will result in null
 }
+    function init(){
+     let fireButton = document.getElementById("fireButton")
+     fireButton.onclick = shot   
+     let guessInput = document.getElementById("guessInput")
+     guessInput.onkeypress = handleKeyPress
+    }
+    function handleKeyPress(e){
+        let fireButton = document.getElementById("fireButton")
+        if (e.keyCode === 13){ // Enter is the keyCode 13
+            fireButton.click()
+            return false
+        }
+    }
+    function shot(){
+        let shot = document.getElementById("guessInput")
+        let guess = shot.value
+        controller.processGuess(guess)
+        guessInput.value = "" //Reset the input space.
+    }
+    window.onload = init
+    
