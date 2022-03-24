@@ -48,8 +48,36 @@ let model = {
         }
     }
         return true
+    },
+    generateShipLocations: function(){
+        let locations
+        for (var i = 0; i < this.numShips; i++){
+            do{
+                locations = this.generateShip() //generate locations for the shups.
+            }while (this.collision(locations)) //If the locations collide with other location the generateShip are execute again, while the numShip is lower than the determined.
+            this.ships[i].locations = locations
+        }
+    },
+    generateShip: function(){
+        let direction = Math.floor(Math.random()) * 2
+        let row
+        let col
+        if (direction === 1){
+
+        }else{
+
+        }
+    var newShipLocations = []
+    for ( var i = 0; i < this.shipLength; i++){
+        if ( direction === 1){
+
+        }else{
+        }
     }
+    return newShipLocations
 }
+}
+
 var controller = {
     guesses: 0,
     processGuess: function(guess){
